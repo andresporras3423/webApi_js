@@ -1,7 +1,6 @@
 const {users} = require("../models/users.js");
 
-
-module.exports.usersController = (app, request, usersModel) => {
+module.exports.usersController = (app, request, mongoose) => {
   let message= 'hello world';
   app.get('/users/all', async (req, response)=>{
     try{
@@ -30,7 +29,7 @@ module.exports.usersController = (app, request, usersModel) => {
       try{
           let email = req.body.email;
           let pass = req.body.pass;
-        list_users = await users.find({"email": email, "pass": pass});
+        list_users = await users.findOne({"email": email, "pass": pass});
         response.json({'message': list_users});
       }
       catch(err){
