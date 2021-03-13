@@ -18,7 +18,7 @@ module.exports.usersController = (app, request, mongoose) => {
           let pass = req.body.pass;
           let new_user = {"name":name,"email":email,"pass":pass};
           const answ = await users.create(new_user);
-          response.json({'message': "saved"});
+          response.json({'message': answ._id});
           } catch (err) {
             console.log(err);
           }
@@ -29,7 +29,7 @@ module.exports.usersController = (app, request, mongoose) => {
       try{
           let email = req.body.email;
           let pass = req.body.pass;
-        list_users = await users.findOne({"email": email, "pass": pass});
+        list_users = await users.find(One({"email": email, "pass": pass}));
         response.json({'message': list_users});
       }
       catch(err){
