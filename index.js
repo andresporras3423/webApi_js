@@ -1,6 +1,7 @@
 //https://www.educba.com/mongodb-unique/ mongodb tutorial
 const express = require("express");
 const app = express();
+const cookieParser = require('cookie-parser');
 const request = require("request");
 const async = require("async");
 const mongoose = require("mongoose");
@@ -10,7 +11,7 @@ const {wordsController} = require("./controllers/words-controller.js");
 let bodyParser = require('body-parser');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
-
+app.use(cookieParser());
 
 mongoose.connect('mongodb://localhost/english_project');
 let db = mongoose.connection;

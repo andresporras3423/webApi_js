@@ -3,10 +3,14 @@ const {technos} = require("../models/technos.js");
 
 module.exports.technosController = (app, request, mongoose) => {
   app.get('/technos/all', async (req, response)=>{
+    console.log(req.cookies.id);
     try{
-        let user_id = req.body.user_id;
+      if (!req.cookies.id)
+      {
+        return response.status(401).send();
+      }
+      let user_id = req.body.user_id;
       let list_technos = await technos.find({user_id: mongoose.Types.ObjectId(user_id)});
-      console.log(list_technos);
       response.json({'message': list_technos});
     }
     catch(err){
