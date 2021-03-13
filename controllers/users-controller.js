@@ -1,7 +1,6 @@
 const {users} = require("../models/users.js");
 
 module.exports.usersController = (app, request, mongoose) => {
-  let message= 'hello world';
   app.get('/users/all', async (req, response)=>{
     try{
       list_users = await users.find({});
