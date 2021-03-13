@@ -7,7 +7,8 @@ let usersSchema = mongoose.Schema({
     },
     email:{
         type: String,
-        required: true
+        required: true,
+        index: true
     },
     pass:{
         type: String,

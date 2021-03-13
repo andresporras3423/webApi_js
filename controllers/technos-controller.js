@@ -1,13 +1,12 @@
-const {users} = require("../models/users.js");
 const {technos} = require("../models/technos.js");
 
 
 module.exports.technosController = (app, request, mongoose) => {
-  let message= 'hello world';
   app.get('/technos/all', async (req, response)=>{
     try{
-        let user_id = req.body._id;
-      list_technos = await technos.find();
+        let user_id = req.body.user_id;
+      let list_technos = await technos.find({user_id: mongoose.Types.ObjectId(user_id)});
+      console.log(list_technos);
       response.json({'message': list_technos});
     }
     catch(err){
