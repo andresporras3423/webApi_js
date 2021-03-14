@@ -13,6 +13,21 @@ module.exports.technosController = (app, request, mongoose) => {
     }
   });
 
+  app.get('/technos/search', async (req, response)=>{
+    try{
+      let list_technos = await technos.find({$where: 
+        `function(){ 
+          return (this.user_id.equals(ObjectId('${current_user._id}')))
+          && ('${req.body.techno_name}'==='' || this.techno_name==='${req.body.techno_name}')
+         && (${req.body.techno_status}===null || this.techno_status===${req.body.techno_status})}`
+        }).sort(req.body.sort_by_name ? { techno_name: 1 }: { _id: 1 });
+      response.json({'message': list_technos});
+    }
+    catch(err){
+      console.log(err);
+    }
+  });
+
   app.post('/technos/add', async (req, response)=>{
     try{
         let user_id = req.body.user_id;
