@@ -31,8 +31,7 @@ module.exports.usersController = (app, request, mongoose) => {
         list_users = await users.findOne({"email": email, "pass": pass});
         if(list_users===null) response.status(404).send();
         else{
-          response.cookie('id', 10);
-          console.log(req.cookies.id);
+          response.cookie('id', list_users._id);
           response.json({'message': list_users});
         }
       }
@@ -49,19 +48,5 @@ module.exports.usersController = (app, request, mongoose) => {
       catch(err){
         console.log(err);
       }
-    });
-
-    app.post('/users/add', async (req, response)=>{
-        try {
-          let name = req.body.name;
-          let email = req.body.email;
-          let pass = req.body.pass;
-          let new_user = {"name":name,"email":email,"pass":pass};
-          const answ = await users.create(new_user);
-          response.json({'message': answ._id});
-          } catch (err) {
-            console.log(err);
-          }
-      
     });
 };
